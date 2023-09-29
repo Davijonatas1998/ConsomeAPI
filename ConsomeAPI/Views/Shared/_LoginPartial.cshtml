@@ -1,0 +1,21 @@
+﻿@using Microsoft.AspNetCore.Http;
+
+ @if (Context.User.Identity.Name != null)
+ {
+     <form method="post" asp-controller="Account" asp-action="Logout">
+        <button type="submit" class="btn btn-secondary">Sair</button>
+     </form>
+     <strong style="font-size: 12px">@User.Identity.Name &nbsp;</strong>
+ }
+ else
+ {
+    <div class="dropdown nav navbar-nav navbar-left">
+        <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Conecte-se
+        </button>
+        <ul class="dropdown-menu">
+            <li><a class="dropdown-item btn btn-outline-primary" asp-area="" asp-controller="Account" asp-action="Login"><strong>Login</strong></a></li>
+            <li><a class="dropdown-item btn btn-outline-primary" asp-area="" asp-controller="Account" asp-action="Register"><strong>Inscreva-se</strong></a></li>
+        </ul>
+    </div>
+ }
