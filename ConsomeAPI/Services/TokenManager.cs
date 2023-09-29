@@ -8,11 +8,15 @@ using System.Text;
 using System.Net;
 using static System.Net.Mime.MediaTypeNames;
 using Microsoft.AspNetCore.Http;
+using Xunit;
+using Microsoft.AspNetCore.Routing;
+using NUnit.Framework;
 
 namespace ConsomeAPI.Services
 {
     public static class TokenManager
     {
+        [Test]
         public static async Task RolesManager(HttpContext context, string email, string refreshToken, string dateExpire)
         {
             string ApiBaseUrl = "https://localhost:7254/api/Account/RoleManager?" + $"email={email}&refreshToken={refreshToken}&date={dateExpire}";
@@ -27,6 +31,7 @@ namespace ConsomeAPI.Services
             }
         }
 
+        [Test]
         public static async Task RefreshToken(HttpContext context, string token, string refreshToken)
         {
             string ApiBaseUrl = "https://localhost:7254/api/Account/RefreshToken?" + $"Token={token}&RefreshToken={refreshToken}";
@@ -41,6 +46,7 @@ namespace ConsomeAPI.Services
             }
         }
 
+        [Fact]
         public static void CookieManager(HttpResponseMessage response, HttpContext context)
         {
             var result = response.Content.ReadAsStringAsync().Result;

@@ -1,7 +1,10 @@
-﻿namespace ConsomeAPI.Services
+﻿using Xunit;
+
+namespace ConsomeAPI.Services
 {
     public static class UploadManager
     {
+        [Fact]
         public static bool IsValidImage(IFormFile file)
         {
             var imagewExtensions = new[] { ".jpg", ".jpeg", ".png", ".gif", ".bmp" };
@@ -9,6 +12,7 @@
             return imagewExtensions.Contains(ext);
         }
 
+        [Fact]
         public static string TokenSystem(int tamanho)
         {
             var chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
