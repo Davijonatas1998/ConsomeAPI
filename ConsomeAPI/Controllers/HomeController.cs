@@ -51,7 +51,7 @@ namespace ConsomeAPI.Controllers
             }
         }
 
-        [Authorize(Roles = "Empregado 3")]
+        [Authorize(Roles = "Member")]
         public IActionResult Authentication()
         {
             return View();
