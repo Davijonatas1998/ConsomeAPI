@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Http;
 using Xunit;
 using Microsoft.AspNetCore.Routing;
 using NUnit.Framework;
+using System.Net.Http.Headers;
 
 namespace ConsomeAPI.Services
 {
@@ -57,6 +58,21 @@ namespace ConsomeAPI.Services
                 Secure = true,
                 SameSite = SameSiteMode.Strict
             });
+        }
+
+        [Fact]
+        public static async Task<HttpResponseMessage> GetAccess(string Url, HttpRequest Request)
+        {
+            var client = new HttpClient();
+            string application = Request.Cookies["JWTApplication"];
+
+            var model = JsonConvert.DeserializeObject(application);
+            JObject responseObject = JObject.Parse(model.ToString());
+            string token = responseObject["token"].ToString();
+
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            var Response = await client.GetAsync(Url);
+            return Response;
         }
     }
 }

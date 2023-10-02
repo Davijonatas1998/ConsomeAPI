@@ -29,16 +29,7 @@ namespace ConsomeAPI.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Admin()
         {
-            var client = new HttpClient();
-            string application = Request.Cookies["JWTApplication"];
-
-            var model = JsonConvert.DeserializeObject(application);
-            JObject responseObject = JObject.Parse(model.ToString());
-            string token = responseObject["token"].ToString();
-
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-            var Response = await client.GetAsync("https://localhost:7254/api/Account/Admin");
-
+            var Response = await TokenManager.GetAccess("https://localhost:7254/api/Account/Admin", Request);
             if (Response.StatusCode == HttpStatusCode.OK)
             {
                 Console.WriteLine(Response.Content.ReadAsStringAsync().Result);
